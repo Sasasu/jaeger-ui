@@ -53,6 +53,10 @@ export const fetchDeepDependencyGraph = createAction(
   query => ({ query })
 );
 
-export const fetchDependencies = createAction('@JAEGER_API/FETCH_DEPENDENCIES', () =>
-  JaegerAPI.fetchDependencies()
+export const fetchDependencies = createAction(
+  '@JAEGER_API/FETCH_DEPENDENCIES',
+  () => {
+    const query = new URLSearchParams(window.location.search).get('q');
+    return JaegerAPI.fetchDependencies(query);
+  }
 );

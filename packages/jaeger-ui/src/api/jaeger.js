@@ -83,8 +83,9 @@ const JaegerAPI = {
   fetchDeepDependencyGraph(query) {
     return getJSON(`${ANALYTICS_ROOT}v1/dependencies`, { query });
   },
-  fetchDependencies(endTs = new Date().getTime(), lookback = DEFAULT_DEPENDENCY_LOOKBACK) {
-    return getJSON(`${this.apiRoot}dependencies`, { query: { endTs, lookback } });
+  // the query parameter is a DSL for query dependencies
+  fetchDependencies(query, endTs = new Date().getTime(), lookback = DEFAULT_DEPENDENCY_LOOKBACK) {
+    return getJSON(`${this.apiRoot}dependencies`, { query: { query, endTs, lookback } });
   },
   fetchServiceOperations(serviceName) {
     return getJSON(`${this.apiRoot}services/${encodeURIComponent(serviceName)}/operations`);
